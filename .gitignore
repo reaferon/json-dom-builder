@@ -1,0 +1,20 @@
+.idea
+
+# phpstorm project files
+.idea
+/web/index.php
+
+# garbage
+.Trash-1000/*
+
+/neo4j/
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+!.vscode/tasks.json
+
+# windows thumbnail cache
+Thumbs.db
+
+# Mac DS_Store Files
+.DS_Store

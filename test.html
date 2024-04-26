@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Json-DOM-Builder</title>
+    <script src="jdb.js"></script>
+    <style>
+        .json__item {
+            color: gray;
+        }
+        .json__item_red {
+            color: red;
+        }
+        .json__button_blue {
+            background: blue;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+<script>
+    function buttonWasClicked(button)
+    {
+        alert('data-text attribute value is ' + button.target.getAttribute('data-text'))
+    }
+    function buttonWasLoaded(button) {
+        setTimeout(() => {
+            button.classList.add('json__button_blue')
+        }, 2000)
+    }
+    let json_test = {
+        'tag': 'ul',
+        'class': ['json__list'],
+        'child': [
+            {
+                'tag':'li',
+                'class': ['json__item'],
+                'text': 'one'
+            },
+            {
+                'tag':'li',
+                'class': ['json__item', 'json__item_red'],
+                'text': 'two'
+            },
+            {
+                'tag':'li',
+                'class': ['json__item'],
+                'child': [
+                    {
+                        'tag': 'button',
+                        'text': 'Click me',
+                        'attributes': {'data-text': 'pfuf', 'id':'jdb-button'},
+                        'listener': [
+                            {'type': 'click', 'func': 'buttonWasClicked'},
+                            {'type': 'onLoad', 'func': 'buttonWasLoaded'},
+                        ]
+                    }
+                ]
+            },
+        ]
+    }
+
+    document.querySelector('body').append(jsonDomBuilder(json_test))
+</script>
+</body>
+</html>
