@@ -32,26 +32,27 @@ function jsonDomBuilder(node) {
     if (node["listener"] !== undefined) {
         if (Array.isArray(node["listener"])) {
             node.listener.forEach((item) => {
+                let params = (item.params !== undefined ? item.params : {})
                 if (item.type === "onLoad") {
                     Promise.resolve(element).then(function (element) {
-                        window[item.func](element)
+                        window[item.func](element,params)
                     })
 
                 } else {
                     element.addEventListener(item.type, function (event) {
-                        window[item.func](event)
+                        window[item.func](event, params)
                     })
                 }
             })
         } else {
             element.addEventListener('click', function (event) {
-                event.preventDefault();
+                let params = target.getAttribute('data-params')
                 let target = event.target
                 if (!event.target.classList.contains('json-event')) {
                     target = event.target.closest('.json-event')
                 }
                 let func = target.getAttribute('data-function')
-                return window[func](target, event)
+                return window[func](target, event, params)
             })
         }
 
